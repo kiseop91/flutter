@@ -20,21 +20,22 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title: Text('Test AppBar'),
+      title: Text('CLO Todo'),
+      centerTitle: true,
+      backgroundColor: Colors.redAccent,
+      elevation: 0.0,
       ),
       body: Center(
         child: Column(
-          children: <Widget>[
+         //   mainAxisAlignment: MainAxisAlignment.center,
+            children:<Widget>[
             Text('Hello'),
-            Text('1'),
-            Text('2'),
-            Text('3'),
-            Text('4'),
-            Text('5'),
-            Text('6')
-          ],
-        ),
-      ),
+            Text('Hello'),
+            Text('Hello'),
+            ],
+          ),
+      ), 
+        
     );
   }
 }
