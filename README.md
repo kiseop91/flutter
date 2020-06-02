@@ -15,5 +15,7 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+![사진](/assets/project.gif)
+
 ## ToDO App 개발 노트
 - 1주차 : Flutter란 무엇인가?  Widget이 무엇이고 어떤 구조로 화면이 구성되는지 이해하기!

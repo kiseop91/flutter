@@ -26,6 +26,23 @@ class MyHomePage extends StatelessWidget {
       centerTitle: true,
       backgroundColor: Colors.amber[700],
       elevation: 0.0,
+      leading: IconButton( 
+        icon: Icon(Icons.menu), onPressed: (){
+          print('menu button is clicked!');
+        } ,
+      ),
+      actions: <Widget>[
+        IconButton( 
+        icon: Icon(Icons.shopping_cart), onPressed: (){
+          print('Shopping cart button is clicked!');
+        },
+      ),
+      IconButton( 
+        icon: Icon(Icons.search), onPressed: (){
+          print('Search button is clicked!');
+        } ,
+      ),
+       ],
       ),
       body: Padding(padding: EdgeInsets.fromLTRB(30.0, 40.0, 0.0, 0.0),
       child:Column(
