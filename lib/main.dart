@@ -177,6 +177,12 @@ class MyHomePage extends StatelessWidget {
                 backgroundImage: AssetImage('assets/Torch.gif'),
                 backgroundColor: Colors.white,
               ),
+              otherAccountsPictures: <Widget>[
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage('assets/bears.png'),
+                  )
+              ],
               accountName: Text('Joseph'),
               accountEmail: Text('Joseph@CLO3D.COM'),
               onDetailsPressed: (){
@@ -189,7 +195,38 @@ class MyHomePage extends StatelessWidget {
                   bottomRight: Radius.circular(40.0)
                 )
               ),
-            )
+            ),
+            ListTile(
+              leading: Icon(Icons.home, 
+              color: Colors.grey[850],
+              ),
+              title: Text('Home'),
+              onTap: (){
+                //일종의 람다함수라고 보면됨.
+                print('Home is clicked!!');
+              },
+              trailing: Icon(Icons.add),
+            ),
+             ListTile(
+              leading: Icon(Icons.settings, 
+              color: Colors.grey[850],
+              ),
+              title: Text('Settings'),
+              onTap: (){
+                print('Settings is clicked!!');
+              },
+              trailing: Icon(Icons.add),
+            ),
+             ListTile(
+              leading: Icon(Icons.today, 
+              color: Colors.grey[850],
+              ),
+              title: Text('ToDo'),
+              onTap: (){
+                print('ToDo is clicked!!');
+              },
+              trailing: Icon(Icons.add),
+            ),
           ],
         ),
       ),
