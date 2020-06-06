@@ -19,3 +19,4 @@ samples, guidance on mobile development, and a full API reference.
 
 ## ToDO App 개발 노트
 - 1주차 : Flutter란 무엇인가?  Widget이 무엇이고 어떤 구조로 화면이 구성되는지 이해하기!
+- 2주차 : App UI Design, 메인 메뉴, 앱바, Todo 기능
