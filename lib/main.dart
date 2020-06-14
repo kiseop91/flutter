@@ -339,11 +339,27 @@ class _MyHomePage2State extends State<MyHomePage2> {
     List todos = List();
     String input = "";
 
-    @override 
-    void initState() {
-      super.initState();
-      todos.add("Input Item!");
+    createTodos() {
+      DocumentReference documentReference = 
+          Firestore.instance.collection("MyTodos").document(input);
+
+          //Map
+          Map<String ,String> todos = { "todoTitle" : input };
+
+          documentReference.setData(todos).whenComplete(() {
+            print("$input created");
+          } );
     }
+
+    deleteTodos() {
+      
+    }
+
+    @override 
+    // void initState() {
+    //   super.initState();
+    //   todos.add("Input Item!");
+    // }
 
     Widget build(BuildContext context) { 
       return Scaffold(  
@@ -365,9 +381,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                   ),
                   actions: <Widget>[
                     FlatButton(onPressed: (){
-                      setState(() {
-                        todos.add(input);
-                      });
+                      createTodos();
                       Navigator.of(context).pop();
                     } ,
                     child:  Text("Add"),
@@ -381,19 +395,21 @@ class _MyHomePage2State extends State<MyHomePage2> {
           child: Icon(Icons.add, color:  Colors.white,),
           )
           ,
-          body:  ListView.builder(
-            itemCount: todos.length ,
-            itemBuilder: 
-            (BuildContext context, int index )
-              {
+           body: StreamBuilder( stream : Firestore.instance.collection("MyTodos").snapshots(), builder: (context,snapshots)
+           {
+             return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshots.data.documents.length ,
+              itemBuilder: ( context, index ){
+              DocumentSnapshot documentSnapshot = snapshots.data.documents[index];
                 return Dismissible (
-                  key: Key(todos[index]), 
+                  key: Key(index.toString()), 
                   child: Card(
                     elevation: 4,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     child : ListTile(
-                      title: Text(todos[index]),
+                      title: Text(documentSnapshot["todoTitle"]),
                       trailing: IconButton(icon: Icon(Icons.delete, color: Colors.red,),
                       onPressed: (){
                         setState(() {
@@ -404,7 +420,8 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       ,),
                       ),
                       ); },
-                      ),
+                      );
+           }),
       );
     }
   }
