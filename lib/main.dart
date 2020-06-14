@@ -407,7 +407,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
               itemBuilder: ( context, index ){
               DocumentSnapshot documentSnapshot = snapshots.data.documents[index];
                 return Dismissible (
-                  key: Key(index.toString()), 
+                  onDismissed: (direction){
+                    deleteTodos(documentSnapshot["todoTitle"]);
+                  } ,
+                  key: Key(documentSnapshot["todoTitle"]), 
                   child: Card(
                     elevation: 4,
                     margin: EdgeInsets.all(8),
