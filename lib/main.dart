@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatefulWidget{
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -214,6 +219,11 @@ class MyHomePage extends StatelessWidget {
               title: Text('Settings'),
               onTap: (){
                 print('Settings is clicked!!');
+                
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp2()),
+                );
               },
               trailing: Icon(Icons.add),
             ),
@@ -238,7 +248,14 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class MyHomePage2 extends StatelessWidget {
+class MyHomePage2 extends StatefulWidget {
+  @override
+  _MyHomePage2State createState() => _MyHomePage2State();
+}
+
+class _MyHomePage2State extends State<MyHomePage2> {
+    List todos = List();
+    String input = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(  
@@ -281,7 +298,8 @@ class MyHomePage2 extends StatelessWidget {
                 ),
               ),
               Positioned( 
-                child:   FloatingActionButton(  
+                child:   
+                FloatingActionButton(  
                   child: Icon(Icons.add, color:Colors.white,),
                   backgroundColor: Colors.pinkAccent,
                 ),
@@ -297,3 +315,95 @@ class MyHomePage2 extends StatelessWidget {
     );
   }
 }
+
+
+// void main() => runApp(MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     theme:
+//      ThemeData(
+//        brightness: Brightness.light,
+//        primaryColor: Colors.blue,
+//        accentColor: Colors.orange
+//        ),
+//     home: MyApp(),
+//   ));
+
+  class MyApp2 extends StatefulWidget {
+    @override 
+    _MyApp2State createState()=> _MyApp2State();
+
+  }
+
+  class _MyApp2State extends State<MyApp2> { 
+    List todos = List();
+    String input = "";
+
+    @override 
+    void initState() {
+      super.initState();
+      todos.add("Input Item!");
+    }
+
+    Widget build(BuildContext context) { 
+      return Scaffold(  
+        appBar: AppBar(
+          title: Text("MyTodos"),
+          ),
+          floatingActionButton: FloatingActionButton( onPressed: 
+          (){
+            showDialog(
+            context: context,
+            builder: (BuildContext context) { 
+                return AlertDialog( 
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  title: Text("Add TodoList"),
+                  content: TextField ( 
+                    onChanged: (String value) {
+                      input = value;
+                    },
+                  ),
+                  actions: <Widget>[
+                    FlatButton(onPressed: (){
+                      setState(() {
+                        todos.add(input);
+                      });
+                      Navigator.of(context).pop();
+                    } ,
+                    child:  Text("Add"),
+                    )
+                  ],
+                );
+                 
+            }
+            );
+          }, 
+          child: Icon(Icons.add, color:  Colors.white,),
+          )
+          ,
+          body:  ListView.builder(
+            itemCount: todos.length ,
+            itemBuilder: 
+            (BuildContext context, int index )
+              {
+                return Dismissible (
+                  key: Key(todos[index]), 
+                  child: Card(
+                    elevation: 4,
+                    margin: EdgeInsets.all(8),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    child : ListTile(
+                      title: Text(todos[index]),
+                      trailing: IconButton(icon: Icon(Icons.delete, color: Colors.red,),
+                      onPressed: (){
+                        setState(() {
+                          todos.removeAt(index);
+                        });
+
+                      } , )
+                      ,),
+                      ),
+                      ); },
+                      ),
+      );
+    }
+  }
