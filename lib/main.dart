@@ -214,10 +214,10 @@ class MyHomePage extends StatelessWidget {
               trailing: Icon(Icons.add),
             ),
              ListTile(
-              leading: Icon(Icons.settings, 
+              leading: Icon(Icons.web, 
               color: Colors.grey[850],
               ),
-              title: Text('Settings'),
+              title: Text('FireBase'),
               onTap: (){
                 print('Settings is clicked!!');
                 
@@ -336,11 +336,10 @@ class _MyHomePage2State extends State<MyHomePage2> {
   }
 
   class _MyApp2State extends State<MyApp2> { 
-    List todos = List();
     String input = "";
 
     createTodos() {
-      DocumentReference documentReference = 
+        DocumentReference documentReference = 
           Firestore.instance.collection("MyTodos").document(input);
 
           //Map
@@ -351,8 +350,13 @@ class _MyHomePage2State extends State<MyHomePage2> {
           } );
     }
 
-    deleteTodos() {
-      
+    deleteTodos(item) {
+      DocumentReference documentReference = 
+          Firestore.instance.collection("MyTodos").document(input);
+
+          documentReference.delete().whenComplete((){
+            print("$input delete");
+          } );
     }
 
     @override 
@@ -412,10 +416,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
                       title: Text(documentSnapshot["todoTitle"]),
                       trailing: IconButton(icon: Icon(Icons.delete, color: Colors.red,),
                       onPressed: (){
-                        setState(() {
-                          todos.removeAt(index);
-                        });
-
+                          deleteTodos(documentSnapshot["todoTitle"]);
                       } , )
                       ,),
                       ),
