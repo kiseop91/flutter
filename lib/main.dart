@@ -352,7 +352,7 @@ class _MyHomePage2State extends State<MyHomePage2> {
 
     deleteTodos(item) {
       DocumentReference documentReference = 
-          Firestore.instance.collection("MyTodos").document(input);
+          Firestore.instance.collection("MyTodos").document(item);
 
           documentReference.delete().whenComplete((){
             print("$input delete");
