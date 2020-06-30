@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +12,41 @@ class MyApp extends StatefulWidget{
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    String appID = "ca-app-pub-4477828009796184~4030873727";
+    FirebaseAdMob.instance.initialize(appId: appID);
+
+    MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    keywords: <String>['flutterio', 'beautiful apps'],
+    contentUrl: 'https://flutter.io',
+    childDirected: false,
+    testDevices: <String>[], // Android emulators are considered test devices
+    );
+
+    BannerAd myBanner = BannerAd(
+  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+  // https://developers.google.com/admob/android/test-ads
+  // https://developers.google.com/admob/ios/test-ads
+     adUnitId:  BannerAd.testAdUnitId, //"ca-app-pub-4477828009796184/6273893684",
+     size: AdSize.smartBanner,
+     targetingInfo: targetingInfo,
+     listener: (MobileAdEvent event) {
+      print("BannerAd event is $event");
+      },);
+
+
+      myBanner
+  // typically this happens well before the ad is shown
+  ..load()
+  ..show(
+    // Positions the banner ad 60 pixels from the bottom of the screen
+    anchorOffset: 0.0,
+    // Positions the banner ad 10 pixels from the center of the screen to the right
+    horizontalCenterOffset: 0.0,
+    // Banner Position
+    anchorType: AnchorType.bottom,
+  );
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Hello World",
